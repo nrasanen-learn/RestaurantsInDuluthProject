@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "492218545003",
+    "project_id": "restaurantsinduluthproje-1affe",
+    "storage_bucket": "restaurantsinduluthproje-1affe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492218545003:android:6547505d00dd17b931d22e",
+        "android_client_info": {
+          "package_name": "CIS3334.restaurantsinduluthproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmjcgn0fNSe4owNawwrJ-DZv_0Ya2KVoU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
