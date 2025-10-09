@@ -23,23 +23,35 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     RestaurantsViewModel restaurantsViewModel;
     Button NextButton;
-    Button Confirmation;
-    EditText NamePassword;
-    EditText NameEmail;
-    EditText EmailAddress;
-    EditText Password;
+    Button confirmation;
+    EditText restaurantName;
+    EditText restaurantAddress;
+    EditText restaurantMenuItems;
+    EditText restaurantCategory;
+    EditText restaurantRating;
     RecyclerView RestaurantRecyclerView;
     RestaurantAdapter restaurantAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Button confirmation = findViewById(R.id.confirmation);
+        EditText restaurantName = findViewById(R.id.restaurantName);
+        EditText restaurantAddress = findViewById(R.id.restaurantAddress);
+        EditText restaurantMenuItems = findViewById(R.id.restaurantMenuItems);
+        EditText restaurantCategory = findViewById(R.id.restaurantCatagory);
+        EditText restaurantRating = findViewById(R.id.restaurantRating);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -93,6 +105,19 @@ public class MainActivity extends AppCompatActivity {
 
     public void setupAddRestaurantButton()
     {
+        confirmation.setOnClickListener(v -> {
+            String name = restaurantName.getText().toString();
+            String address = restaurantAddress.getText().toString();
+            String menuItems = restaurantMenuItems.getText().toString();
+            ArrayList<String> menuList = new ArrayList<>(Arrays.asList(menuItems.split("\\s*,\\s*")));
+            String category = restaurantCategory.getText().toString();
+            String ratingText = restaurantRating.getText().toString();
+            double rating = Double.parseDouble(ratingText);
+            Restaurant newRestaurant = new Restaurant(null, name, address, menuList, category, rating);
+
+            // Add to Firebase and update ViewModel
+            restaurantsViewModel.addRestaurant(newRestaurant);
+    });
 
     }
 

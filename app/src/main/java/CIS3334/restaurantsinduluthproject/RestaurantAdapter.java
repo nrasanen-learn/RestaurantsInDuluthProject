@@ -33,8 +33,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
-        LiveData<List<Restaurant>> orderLiveData = restaurantsViewModel.getRestaurants();
-        Restaurant restaurant = orderLiveData.getValue().get(position);
+        List<Restaurant> orderLiveData = restaurantsViewModel.getRestaurants();
+        Restaurant restaurant = orderLiveData.get(position);
         holder.textViewRestaurantDescription.setText(restaurant.getName());
         Log.d("CIS 3334", "RestaurantAdapter  restaurant");
     }
@@ -42,11 +42,11 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
     @Override
     public int getItemCount() {
         int numberOfRestaurants = 0;
-        LiveData<List<Restaurant>> orderLiveData = restaurantsViewModel.getRestaurants(); // Get the LiveData object
+        List<Restaurant> orderLiveData = restaurantsViewModel.getRestaurants(); // Get the LiveData object
 
-        if (orderLiveData != null && orderLiveData.getValue() != null) {
+        if (orderLiveData != null && orderLiveData != null) {
             // Only try to get the size if getValue() is not null
-            numberOfRestaurants = orderLiveData.getValue().size();
+            numberOfRestaurants = orderLiveData.size();
         } else {
             // Handle the case where LiveData or its value is null
             // You could log this, or simply return 0 as you are.

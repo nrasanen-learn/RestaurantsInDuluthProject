@@ -19,19 +19,53 @@ public class FirebaseClass {
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         ArrayList<Restaurant> restaurantsList = new ArrayList<>();
+                        Log.d("FirebaseService", "first if statement");
+
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Restaurant restaurant = document.toObject(Restaurant.class);
-                            restaurant.setId(document.getId()); // Set the document ID on the park object
+                            restaurant.setId(document.getId());
                             restaurantsList.add(restaurant);
+                            Log.d("FirebaseService", "for loop" + restaurant.getName());
                         }
-                        callback.accept(restaurantsList); // Pass the completed list to the callback
+
+                        if (restaurantsList.isEmpty()) {
+                            Log.d("FirebaseService", "Database is empty. Adding default restaurants.");
+                            addDefaultRestaurants();
+
+                            callback.accept(new ArrayList<>());
+                        } else {
+                            callback.accept(restaurantsList);
+                        }
                     } else {
-                        Log.w(TAG, "Error getting documents.", task.getException());
-                        // On failure, you could pass back an empty list
+                        Log.w("FirebaseService", "Error getting documents.", task.getException());
                         callback.accept(new ArrayList<>());
                     }
                 });
     }
+    public void addDefaultRestaurants() {
+                Log.d("RestaurantViewModel", "EmptyList");
+                // Sara's Table Menu
+                ArrayList<String> STmenu = new ArrayList<>();
+                STmenu.add("Pumpkin Pancakes");
+                STmenu.add("Koren Barbecue Sandwich");
+                STmenu.add("GBLT");
+                // Bridgeman's Menu
+                ArrayList<String> BMmenu = new ArrayList<>();
+                BMmenu.add("Buffalo Chicken Wrap");
+                BMmenu.add("Mizzle Skizzle");
+                BMmenu.add("Turtle Sunday");
+                // Duluth Grill's Menu
+                ArrayList<String> DGmenu = new ArrayList<>();
+                DGmenu.add("The Bear");
+                DGmenu.add("Mediterranean Omelet");
+                DGmenu.add("Maple Bacon Salad");
+
+                // taken from ChatGPT
+                List<Restaurant> defaultRestaurants = new ArrayList<>();
+                addRest(new Restaurant(null, "Sara's Table Chester Creek Cafe", "1902 E 8th St Duluth MN 55812", STmenu, "Cafe", 4.5));
+                addRest(new Restaurant(null, "Bridgemans", "2202 Mountain Shadow Dr. Duluth, MN ", BMmenu, "Diner", 4.7));
+                addRest(new Restaurant(null, "Duluth Grill", "118 S 27th Ave W, Duluth, MN 55806", DGmenu, "Grill", 4.7));
+            }
 
     public void addRest(Restaurant restaurant) {
         db.collection("restaurants")
