@@ -26,43 +26,11 @@ public class RestaurantsViewModel extends ViewModel {
         return _selectedRestaurant;
     }
 
+    public List<Restaurant> restaurants;
+
     public RestaurantsViewModel() {
         Log.d("RestaurantViewModel", "Instance created: loadRestaurants " + instanceId);
-        loadRestaurants();
-    }
-
-    public void loadRestaurants() {
-        firebaseService.retrieveRest(restaurantsList -> {
-            _restaurants.setValue(restaurantsList); // Update LiveData with the result from Firebase
-            // If the Firebase list is empty, add three sample Restaurants to seed the database.
-            Log.d("RestaurantViewModel", "loadingRestaurant");
-            if (restaurantsList.isEmpty()) {
-                Log.d("RestaurantViewModel", "EmptyList");
-                // Sara's Table Menu
-                ArrayList<String> STmenu = new ArrayList<>();
-                STmenu.add("Pumpkin Pancakes");
-                STmenu.add("Koren Barbecue Sandwich");
-                STmenu.add("GBLT");
-                // Bridgeman's Menu
-                ArrayList<String> BMmenu = new ArrayList<>();
-                BMmenu.add("Buffalo Chicken Wrap");
-                BMmenu.add("Mizzle Skizzle");
-                BMmenu.add("Turtle Sunday");
-                // Duluth Grill's Menu
-                ArrayList<String> DGmenu = new ArrayList<>();
-                DGmenu.add("The Bear");
-                DGmenu.add("Mediterranean Omelet");
-                DGmenu.add("Maple Bacon Salad");
-
-                // taken from ChatGPT
-                List<Restaurant> defaultRestaurants = new ArrayList<>();
-                defaultRestaurants.add(new Restaurant(null, "Sara's Table Chester Creek Cafe", "1902 E 8th St Duluth MN 55812", STmenu, "Cafe", 4.5));
-                defaultRestaurants.add(new Restaurant(null, "Bridgemans", "2202 Mountain Shadow Dr. Duluth, MN ", BMmenu, "Diner", 4.7));
-                defaultRestaurants.add(new Restaurant(null, "Duluth Grill", "118 S 27th Ave W, Duluth, MN 55806", DGmenu, "Grill", 4.7));
-
-                _restaurants.setValue(defaultRestaurants);
-            }
-        });
+        firebaseService.retrieveRest(this::callback);
     }
 
     public void selectRestaurant(String restaurantId) {
@@ -96,6 +64,14 @@ public class RestaurantsViewModel extends ViewModel {
         super.onCleared();
         Log.d("RestaurantViewModel", "Instance cleared: " + instanceId);
     }
+
+    public void callback(List<Restaurant> normalRestaurants)
+    {
+            Log.d("RestaurantViewModel", "Callback received " + normalRestaurants.size() + " restaurants.");
+            _restaurants.setValue(normalRestaurants); // Set the received list to the LiveData
+            restaurants = normalRestaurants; // Optionally, update the public, non-LiveData list
+    }
+
 
 }
 
