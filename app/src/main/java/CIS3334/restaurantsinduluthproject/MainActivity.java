@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
         restaurantsViewModel = new ViewModelProvider(this).get(RestaurantsViewModel.class);
-        restaurantsViewModel.loadRestaurants();
 
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,5 +90,11 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    public void setupAddRestaurantButton()
+    {
+
+    }
+
 
 }

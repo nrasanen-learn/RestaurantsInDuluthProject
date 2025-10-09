@@ -22,8 +22,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RestaurantRecyclerView"
-            android:layout_width="152dp"
-            android:layout_height="78dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"

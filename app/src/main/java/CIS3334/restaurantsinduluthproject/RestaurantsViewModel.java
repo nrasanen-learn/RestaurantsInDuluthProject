@@ -27,7 +27,7 @@ public class RestaurantsViewModel extends ViewModel {
     }
 
     public RestaurantsViewModel() {
-        Log.d("RestaurantViewModel", "Instance created: " + instanceId);
+        Log.d("RestaurantViewModel", "Instance created: loadRestaurants " + instanceId);
         loadRestaurants();
     }
 
@@ -60,12 +60,6 @@ public class RestaurantsViewModel extends ViewModel {
                 defaultRestaurants.add(new Restaurant(null, "Bridgemans", "2202 Mountain Shadow Dr. Duluth, MN ", BMmenu, "Diner", 4.7));
                 defaultRestaurants.add(new Restaurant(null, "Duluth Grill", "118 S 27th Ave W, Duluth, MN 55806", DGmenu, "Grill", 4.7));
 
-                // Save them to Firebase (optional)
-                for (Restaurant r : defaultRestaurants) {
-                    addRestaurant(r);
-                }
-
-                // 🚀 Immediately update LiveData so RecyclerView can show them
                 _restaurants.setValue(defaultRestaurants);
             }
         });
@@ -101,31 +95,6 @@ public class RestaurantsViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         Log.d("RestaurantViewModel", "Instance cleared: " + instanceId);
-    }
-
-    private void loadSampleRestaurants() {
-        ArrayList<Restaurant> sampleList = new ArrayList<>();
-
-        ArrayList<String> stMenu = new ArrayList<>();
-        stMenu.add("Pumpkin Pancakes");
-        stMenu.add("Korean Barbecue Sandwich");
-        stMenu.add("GBLT");
-
-        ArrayList<String> bmMenu = new ArrayList<>();
-        bmMenu.add("Buffalo Chicken Wrap");
-        bmMenu.add("Mizzle Skizzle");
-        bmMenu.add("Turtle Sundae");
-
-        ArrayList<String> dgMenu = new ArrayList<>();
-        dgMenu.add("The Bear");
-        dgMenu.add("Mediterranean Omelet");
-        dgMenu.add("Maple Bacon Salad");
-
-        sampleList.add(new Restaurant("1", "Sara's Table Chester Creek Cafe", "1902 E 8th St, Duluth, MN 55812", stMenu, "Cafe", 4.5));
-        sampleList.add(new Restaurant("2", "Bridgeman's", "2202 Mountain Shadow Dr, Duluth, MN", bmMenu, "Diner", 4.7));
-        sampleList.add(new Restaurant("3", "Duluth Grill", "118 S 27th Ave W, Duluth, MN 55806", dgMenu, "Grill", 4.7));
-
-        _restaurants.setValue(sampleList);
     }
 
 }

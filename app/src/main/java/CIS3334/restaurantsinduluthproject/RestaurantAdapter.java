@@ -35,7 +35,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
         LiveData<List<Restaurant>> orderLiveData = restaurantsViewModel.getRestaurants();
         Restaurant restaurant = orderLiveData.getValue().get(position);
-        holder.textViewRestaurantDescription.setText(restaurant.toString());
+        holder.textViewRestaurantDescription.setText(restaurant.getName());
+        Log.d("CIS 3334", "RestaurantAdapter  restaurant");
     }
 
     @Override
@@ -52,7 +53,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
             Log.d("CIS 3334", "RestaurantAdapter -- loadRestaurants().getValue() is null");
         }
 
-        Log.d("CIS 3334", "OrderAdapter -- Number of Pizzas = " + numberOfRestaurants);
+        Log.d("CIS 3334", "RestaurantAdapter -- Number of Restaurants = " + numberOfRestaurants);
         return numberOfRestaurants;
     }
 

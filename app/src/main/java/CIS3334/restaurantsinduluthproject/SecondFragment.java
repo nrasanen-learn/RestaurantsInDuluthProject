@@ -49,34 +49,6 @@ public class SecondFragment extends Fragment {
         restaurantAdapter = new RestaurantAdapter(requireContext(), restaurantsViewModel);
         RestaurantRecyclerView.setAdapter(restaurantAdapter);
         RestaurantRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
-
-        ArrayList<Restaurant> exampleRestaurants = new ArrayList<>();
-        // Sara's Table Menu
-        ArrayList<String> STmenu = new ArrayList<>();
-        STmenu.add("Pumpkin Pancakes");
-        STmenu.add("Koren Barbecue Sandwich");
-        STmenu.add("GBLT");
-        // Bridgeman's Menu
-        ArrayList<String> BMmenu = new ArrayList<>();
-        BMmenu.add("Buffalo Chicken Wrap");
-        BMmenu.add("Mizzle Skizzle");
-        BMmenu.add("Turtle Sunday");
-        // Duluth Grill's Menu
-        ArrayList<String> DGmenu = new ArrayList<>();
-        DGmenu.add("The Bear");
-        DGmenu.add("Mediterranean Omelet");
-        DGmenu.add("Maple Bacon Salad");
-
-        // taken from ChatGPT
-        List<Restaurant> defaultRestaurants = new ArrayList<>();
-        exampleRestaurants.add(new Restaurant(null, "Sara's Table Chester Creek Cafe", "1902 E 8th St Duluth MN 55812", STmenu, "Cafe", 4.5));
-        exampleRestaurants.add(new Restaurant(null, "Bridgemans", "2202 Mountain Shadow Dr. Duluth, MN ", BMmenu, "Diner", 4.7));
-        exampleRestaurants.add(new Restaurant(null, "Duluth Grill", "118 S 27th Ave W, Duluth, MN 55806", DGmenu, "Grill", 4.7));
-
-        // 🚀 Update the adapter
-        restaurantAdapter.setRestaurants(exampleRestaurants);
-
-        restaurantsViewModel.loadRestaurants();
     }
 
     @Override
