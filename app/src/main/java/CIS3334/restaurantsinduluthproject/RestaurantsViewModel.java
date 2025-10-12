@@ -75,6 +75,14 @@ public class RestaurantsViewModel extends ViewModel {
             restaurants = normalRestaurants; // Optionally, update the public, non-LiveData list
     }
 
+    public void sortByRating() {
+        List<Restaurant> currentList = _restaurants.getValue();
+        if (currentList == null || currentList.isEmpty()) return;
+
+        currentList.sort((r1, r2) -> Double.compare(r2.getRating(), r1.getRating()));
+        _restaurants.setValue(currentList); // notify observers
+    }
+
 
 }
 

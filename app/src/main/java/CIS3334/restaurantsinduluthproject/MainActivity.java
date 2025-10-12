@@ -6,6 +6,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -67,9 +68,8 @@ public class MainActivity extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
+                restaurantsViewModel.sortByRating();
+                Snackbar.make(view, "Sorted by rating!", Snackbar.LENGTH_SHORT).show();
             }
         });
     }
@@ -114,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
             String ratingText = restaurantRating.getText().toString();
             double rating = Double.parseDouble(ratingText);
             Restaurant newRestaurant = new Restaurant(null, name, address, menuList, category, rating);
+
+            Log.d("setupAddRestaurantButton", "Called the add method ");
 
             // Add to Firebase and update ViewModel
             restaurantsViewModel.addRestaurant(newRestaurant);
