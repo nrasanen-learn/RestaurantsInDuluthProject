@@ -45,14 +45,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
         List<Restaurant> orderLiveData = restaurantsViewModel.getRestaurants(); // Get the LiveData object
 
         if (orderLiveData != null && orderLiveData != null) {
-            // Only try to get the size if getValue() is not null
             numberOfRestaurants = orderLiveData.size();
         } else {
-            // Handle the case where LiveData or its value is null
-            // You could log this, or simply return 0 as you are.
             Log.d("CIS 3334", "RestaurantAdapter -- loadRestaurants().getValue() is null");
         }
-
         Log.d("CIS 3334", "RestaurantAdapter -- Number of Restaurants = " + numberOfRestaurants);
         return numberOfRestaurants;
     }
@@ -64,7 +60,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
 
     public void setRestaurants(List<Restaurant> newRestaurants) {
         this.restaurants = newRestaurants;
-        notifyDataSetChanged(); // Tells RecyclerView to refresh the list
+        notifyDataSetChanged();
     }
 }
 

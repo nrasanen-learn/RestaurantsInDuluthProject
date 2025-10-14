@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
@@ -45,10 +48,27 @@ public class SecondFragment extends Fragment {
         );
         restaurantsViewModel = new ViewModelProvider(requireActivity()).get(RestaurantsViewModel.class);
 
+        // sets up recycler view
         RestaurantRecyclerView = view.findViewById(R.id.RestaurantRecyclerView);
         restaurantAdapter = new RestaurantAdapter(requireContext(), restaurantsViewModel);
         RestaurantRecyclerView.setAdapter(restaurantAdapter);
         RestaurantRecyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        restaurantsViewModel.getLiveRestaurants().observe(getViewLifecycleOwner(), newRestaurants -> {
+            restaurantAdapter.setRestaurants(newRestaurants);
+        });
+
+        // sets up switch
+        Switch sortSwitch = view.findViewById(R.id.sortSwitch);
+
+        sortSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                restaurantsViewModel.sortByRating();
+            } else {
+                restaurantsViewModel.restoreOriginalOrder();
+            }
+        });
+
     }
 
     @Override

@@ -47,15 +47,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Button confirmation = findViewById(R.id.confirmation);
-        EditText restaurantName = findViewById(R.id.restaurantName);
-        EditText restaurantAddress = findViewById(R.id.restaurantAddress);
-        EditText restaurantMenuItems = findViewById(R.id.restaurantMenuItems);
-        EditText restaurantCategory = findViewById(R.id.restaurantCatagory);
-        EditText restaurantRating = findViewById(R.id.restaurantRating);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        restaurantsViewModel = new ViewModelProvider(this).get(RestaurantsViewModel.class);
+
+        confirmation = findViewById(R.id.confirmation);
+        restaurantName = findViewById(R.id.restaurantName);
+        restaurantAddress = findViewById(R.id.restaurantAddress);
+        restaurantMenuItems = findViewById(R.id.restaurantMenuItems);
+        restaurantCategory = findViewById(R.id.restaurantCatagory);
+        restaurantRating = findViewById(R.id.restaurantRating);
+
+        setupAddRestaurantButton();
 
         setSupportActionBar(binding.toolbar);
 
@@ -63,16 +67,12 @@ public class MainActivity extends AppCompatActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 
-        restaurantsViewModel = new ViewModelProvider(this).get(RestaurantsViewModel.class);
-
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                restaurantsViewModel.sortByRating();
-                Snackbar.make(view, "Sorted by rating!", Snackbar.LENGTH_SHORT).show();
-            }
+        binding.fab.setOnClickListener(view -> {
+            restaurantsViewModel.sortByRating();
+            Snackbar.make(view, "Sorted by rating!", Snackbar.LENGTH_SHORT).show();
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,12 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }

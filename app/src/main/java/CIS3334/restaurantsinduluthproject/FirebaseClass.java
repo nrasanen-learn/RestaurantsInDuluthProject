@@ -15,6 +15,7 @@ public class FirebaseClass {
 
     public void retrieveRest(Consumer<List<Restaurant>> callback) {
         db.collection("restaurants")
+                .orderBy("name") // or "category" or "rating"
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -63,7 +64,7 @@ public class FirebaseClass {
                 // taken from ChatGPT
                 List<Restaurant> defaultRestaurants = new ArrayList<>();
                 addRest(new Restaurant(null, "Sara's Table Chester Creek Cafe", "1902 E 8th St Duluth MN 55812", STmenu, "Cafe", 4.5));
-                addRest(new Restaurant(null, "Bridgemans", "2202 Mountain Shadow Dr. Duluth, MN ", BMmenu, "Diner", 4.7));
+                addRest(new Restaurant(null, "Bridgemans", "2202 Mountain Shadow Dr. Duluth, MN ", BMmenu, "Diner", 4.6));
                 addRest(new Restaurant(null, "Duluth Grill", "118 S 27th Ave W, Duluth, MN 55806", DGmenu, "Grill", 4.7));
             }
 

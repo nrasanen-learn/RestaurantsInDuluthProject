@@ -15,6 +15,7 @@ public class RestaurantsViewModel extends ViewModel {
     private final FirebaseClass firebaseService = new FirebaseClass();
     // Initialize with an empty list to prevent null issues.
     private final MutableLiveData<List<Restaurant>> _restaurants = new MutableLiveData<>(new ArrayList<>());
+    private List<Restaurant> originalRestaurants = new ArrayList<>();
 
     public LiveData<List<Restaurant>> getLiveRestaurants() {
         return _restaurants;
@@ -71,8 +72,8 @@ public class RestaurantsViewModel extends ViewModel {
     public void callback(List<Restaurant> normalRestaurants)
     {
             Log.d("RestaurantViewModel", "Callback received " + normalRestaurants.size() + " restaurants.");
-            _restaurants.setValue(normalRestaurants); // Set the received list to the LiveData
-            restaurants = normalRestaurants; // Optionally, update the public, non-LiveData list
+            _restaurants.setValue(normalRestaurants);
+            restaurants = normalRestaurants;
     }
 
     public void sortByRating() {
@@ -80,9 +81,22 @@ public class RestaurantsViewModel extends ViewModel {
         if (currentList == null || currentList.isEmpty()) return;
 
         currentList.sort((r1, r2) -> Double.compare(r2.getRating(), r1.getRating()));
-        _restaurants.setValue(currentList); // notify observers
+        _restaurants.setValue(currentList);
     }
 
+    public void loadRestaurants() {
+        Log.d("RestaurantsViewModel", "Loading restaurants from Firebase...");
+
+        firebaseService.retrieveRest(restaurantsFromFirebase -> {
+
+            _restaurants.postValue(restaurantsFromFirebase);
+            Log.d("RestaurantsViewModel", "Loaded " + restaurantsFromFirebase.size() + " restaurants from Firebase.");
+        });
+    }
+
+    public void restoreOriginalOrder() {
+        _restaurants.setValue(new ArrayList<>(originalRestaurants));
+    }
 
 }
 
