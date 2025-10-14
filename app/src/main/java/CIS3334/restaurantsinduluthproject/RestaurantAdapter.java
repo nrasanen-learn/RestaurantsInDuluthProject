@@ -35,7 +35,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantViewHolder
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
         List<Restaurant> orderLiveData = restaurantsViewModel.getRestaurants();
         Restaurant restaurant = orderLiveData.get(position);
-        holder.textViewRestaurantDescription.setText(restaurant.getName());
+        holder.textViewRestaurantDescription.setText(restaurant.getName() + restaurant.getMenuItems());
         Log.d("CIS 3334", "RestaurantAdapter  restaurant");
     }
 
