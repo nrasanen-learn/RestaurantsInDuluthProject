@@ -3,6 +3,10 @@ package CIS3334.restaurantsinduluthproject;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * this class allows you to create restaurant objects and sets the data type for each of the attributes of a restaurant
+ * and getters and setters for each one
+ */
 public class Restaurant {
     private String id;
     private String name;

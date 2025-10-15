@@ -13,6 +13,12 @@ public class FirebaseClass {
     private static final String TAG = "FirebaseService";
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    /**
+     * this goes through the collection in the database and creates a listener and a arrayList
+     * then for every document there is it will add it to that list
+     * if its empty it will get the 3 default restaurants to add by calling the addDefaultRestaurants() method
+     * @param callback this is the method in the RestaurantsViewModel
+     */
     public void retrieveRest(Consumer<List<Restaurant>> callback) {
         db.collection("restaurants")
                 .orderBy("name") // or "category" or "rating"
@@ -43,6 +49,11 @@ public class FirebaseClass {
                     }
                 });
     }
+
+    /**
+     * makes 3 restaurants that can be called as default restaurants if the user's list is empty
+     * it also makes the ArrayList's for the menuItems since that is it's data type
+     */
     public void addDefaultRestaurants() {
                 Log.d("RestaurantViewModel", "EmptyList");
                 // Sara's Table Menu
@@ -68,6 +79,10 @@ public class FirebaseClass {
                 addRest(new Restaurant(null, "Duluth Grill", "118 S 27th Ave W, Duluth, MN 55806", DGmenu, "Grill", 4.7));
             }
 
+    /**
+     * this adds any restaurant object you want to the database and the recyclerView
+     * @param restaurant this is any restaurant object that you want to add to your database and the recyclerView
+     */
     public void addRest(Restaurant restaurant) {
         db.collection("restaurants")
                 .add(restaurant);

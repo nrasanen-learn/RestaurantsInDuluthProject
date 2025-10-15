@@ -28,6 +28,18 @@ public class SecondFragment extends Fragment {
     RecyclerView RestaurantRecyclerView;
     RestaurantAdapter restaurantAdapter;
 
+    /**
+     * sets up the binding to make the layout like in the other fragment
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return it returns the layout
+     */
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -39,6 +51,14 @@ public class SecondFragment extends Fragment {
 
     }
 
+    /**
+     * this sets up a listener on the button to go back to the first fragment anf also sets up the recycler view
+     * as well as a switch which is used for the sorting by rating
+     * all of this is done after the layout from the previous method is done setting up
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -71,6 +91,9 @@ public class SecondFragment extends Fragment {
 
     }
 
+    /**
+     * this destroys the layout by getting rid of the binding (null)
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();

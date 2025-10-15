@@ -42,8 +42,14 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView RestaurantRecyclerView;
     RestaurantAdapter restaurantAdapter;
 
-
-    @Override
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
+     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -73,7 +79,12 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     *this starts up the options menu
+     * @param menu The options menu in which you place your items.
+     *
+     * @return true which means it started up
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -81,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     *
+     * @param item The menu item that was selected.
+     *
+     * @return returns that item that you select
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -93,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * this initialises the navController in this method
+     * @return the navigateUp with parameters
+     */
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -100,6 +121,11 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    /**
+     * this method sets up the confirmation button on the first fragment
+     * it sets the appropiate data type to the variables and formats them
+     * then calls the addRestaurant in the restaurantViewModel
+     */
     public void setupAddRestaurantButton()
     {
         confirmation.setOnClickListener(v -> {

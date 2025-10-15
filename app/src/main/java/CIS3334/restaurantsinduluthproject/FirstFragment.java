@@ -15,6 +15,18 @@ public class FirstFragment extends Fragment {
 
     private FragmentFirstBinding binding;
 
+    /**
+     * this creates what the first screen is going to show by binding
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return this will send back the results a layout on how to format the fragment
+     */
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
@@ -26,6 +38,12 @@ public class FirstFragment extends Fragment {
 
     }
 
+    /**
+     * this sets a listener on my next button and allows me to change to my second fragment/screen
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
@@ -35,6 +53,9 @@ public class FirstFragment extends Fragment {
         );
     }
 
+    /**
+     * this gets rid of the binding made previously in the onCreateView() method
+     */
     @Override
     public void onDestroyView() {
         super.onDestroyView();
